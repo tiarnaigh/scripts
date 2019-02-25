@@ -7,16 +7,16 @@ REMPORT=$2
 
 echo "########## Cert details for $REMHOST:$REMPORT ##########";
 echo |\
-openssl s_client -connect ${REMHOST}:${REMPORT} 2>/dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+openssl s_client -connect ${REMHOST}:${REMPORT} -servername ${REMHOST} 2>/dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
 
 echo "########## Expiration dates ##########";
 echo |\
-openssl s_client -connect ${REMHOST}:${REMPORT} 2>/dev/null | openssl x509 -noout -dates;
+openssl s_client -connect ${REMHOST}:${REMPORT} -servername ${REMHOST} 2>/dev/null | openssl x509 -noout -dates;
 
 
 echo "########## Signature details ##########";
 echo |\
-openssl s_client -connect ${REMHOST}:${REMPORT} 2>/dev/null |openssl x509 -text -in /dev/stdin |grep "Signature Algorithm"
+openssl s_client -connect ${REMHOST}:${REMPORT} -servername ${REMHOST} 2>/dev/null |openssl x509 -text -in /dev/stdin |grep "Signature Algorithm"
 
 
 
