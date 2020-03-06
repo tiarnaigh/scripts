@@ -1,3 +1,10 @@
+# Run as "ck destinationIP/ portNum"
+# 
+# test:~$ ck 10.10.1.1 13310
+# curl --interface 10.11.1.1 -v -m 5 https://10.10.1.1:13310
+# 10.10.1.1 ==> 10.10.1.1 13310 :  Fail
+# test:~$
+
 function ck {
   sources=$( ip route get 8.8.8.8 | grep '8.8.8.8' | awk '{print $7}' )
   [[ -z "$sources" ]] &&  sources=$( route PRINT | grep ' 0.0.0.0' | awk '{print $4}' )
